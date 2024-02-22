@@ -8,23 +8,6 @@ const router = express.Router();
 redisConnect();
 router.use(express.json());
 
-
-
-router.get("/api/seed", async (req, res) => {
-    const conn = await pool.getConnection()
-
-    await conn.query("CREATE TABLE IF NOT EXISTS cars (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, name VARCHAR(240) NOT NULL, description TEXT NOT NULL)")
-
-    await conn.query(CARS_DATA)
-
-
-    res.json({
-        ok: true,
-        message: "Seed planted succesfully. (Init data created in database)"
-    })
-
-})
-
 router.get("/api/cache/", async (req, res) => {
     const caching = req.query.caching == "true" ? true : false
     const api = req.query.api
